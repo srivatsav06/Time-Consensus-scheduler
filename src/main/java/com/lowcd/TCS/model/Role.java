@@ -1,4 +1,4 @@
-package com.lowcd.TCS.Model;
+package com.lowcd.TCS.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
