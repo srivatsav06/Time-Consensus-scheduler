@@ -10,17 +10,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Request {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "reqid")
     @Setter(value = AccessLevel.NONE)
     private Long reqId;
 
     @ManyToMany
-    @JoinTable(name="studentrequests",joinColumns = @JoinColumn(name="userid"),inverseJoinColumns = @JoinColumn(name="reqid"))
+    @JoinTable(name = "studentrequests" ,
+            joinColumns = @JoinColumn(name="userid"),
+            inverseJoinColumns = @JoinColumn(name="reqid"))
     private List<User> studentId;
 
     @ManyToMany
-    @JoinTable(name="teacherrequests",joinColumns = @JoinColumn(name="userid"),inverseJoinColumns = @JoinColumn(name="reqid"))
+    @JoinTable(name="teacherrequests" ,
+            joinColumns = @JoinColumn(name="userid"),
+            inverseJoinColumns = @JoinColumn(name="reqid"))
     @Column(name ="teacherid")
     private List<User> teacherId;
 
