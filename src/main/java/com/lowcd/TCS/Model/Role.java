@@ -17,13 +17,9 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="roleid",nullable = false,unique = true)
+    @Column(name="roleid", nullable = false,unique = true)
     private Integer roleId;
 
-    @Column(name="rolename",nullable = false,unique = true)
+    @Column(name="rolename", nullable = false,unique = true)
     private String roleName;
-
-    @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name="role_fk",referencedColumnName = "roleid")
-    List<User> users;
 }
