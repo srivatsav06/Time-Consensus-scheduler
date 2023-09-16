@@ -1,6 +1,6 @@
 package com.lowcd.TCS.controller;
 
-import com.lowcd.TCS.Util.RequestMapper;
+import com.lowcd.TCS.util.RequestMapper;
 import com.lowcd.TCS.entity.Request;
 import com.lowcd.TCS.model.RequestBO;
 import com.lowcd.TCS.entity.User;
@@ -41,7 +41,7 @@ public class RequestController  {
         }
         List<Request> requests = requestRepository.findRequestsByParticipantsUserid(user.get().getUserid());
 
-         List<RequestBO> list=new ArrayList<>();
+         List<RequestBO> list = new ArrayList<>();
          for (Request r:requests)
          {
              List<User> l = userRepository.findUsersByRequestsReqId(r.getReqId());

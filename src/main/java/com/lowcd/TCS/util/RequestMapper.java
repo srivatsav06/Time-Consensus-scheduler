@@ -1,4 +1,4 @@
-package com.lowcd.TCS.Util;
+package com.lowcd.TCS.util;
 
 import com.lowcd.TCS.entity.Request;
 import com.lowcd.TCS.model.RequestBO;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ReqDtoB {
+public class RequestMapper {
 
     public static Request toData(RequestBO req, Set<User> users)
     {
@@ -23,18 +23,14 @@ public class ReqDtoB {
 
     public static RequestBO fromData(Request request)
     {
-        RequestBO requestBO=new RequestBO();
-        requestBO.setDateTime(request.getDateTime());
-        requestBO.setDescription(request.getDescription());
-        requestBO.setTitle(request.getTitle());
-        requestBO.setStatus(request.getStatus());
         List<Long> participants= new ArrayList<Long>();
         Set<User> users=request.getParticipants();
-        for(User u:users)
-        {
-            participants.add(u.getUserid());
-        }
-        requestBO.setParticipants(participants);
+        users.forEach(u -> participants.add(u.getUserid()));
+        RequestBO requestBO=new RequestBO(request.getDateTime(),
+                request.getStatus(),
+                request.getTitle(),
+                request.getDescription(),
+                participants);
         return requestBO;
     }
 }
