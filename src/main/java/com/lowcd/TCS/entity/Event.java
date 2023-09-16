@@ -1,6 +1,14 @@
 package com.lowcd.TCS.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name="events")
+@Table(name = "events")
 @Data
 @NoArgsConstructor
 public class Event {
@@ -30,9 +38,9 @@ public class Event {
     private LocalDateTime dateTime;
 
     @ManyToMany
-    @JoinTable(name = "participants" ,
-            joinColumns = @JoinColumn(name="eventid"),
-            inverseJoinColumns = @JoinColumn(name="userid"))
+    @JoinTable(name = "participants",
+            joinColumns = @JoinColumn(name = "eventid"),
+            inverseJoinColumns = @JoinColumn(name = "userid"))
     @Column(name = "participants")
     private Set<User> participants;
 
