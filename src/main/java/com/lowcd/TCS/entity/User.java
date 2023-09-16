@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a User entity in the application.
+ */
 @Entity
 @Table(name = "users")
 @Data

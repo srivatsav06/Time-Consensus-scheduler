@@ -17,6 +17,9 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+/**
+ * Represents an Event entity in the application.
+ */
 @Entity
 @Table(name = "events")
 @Data

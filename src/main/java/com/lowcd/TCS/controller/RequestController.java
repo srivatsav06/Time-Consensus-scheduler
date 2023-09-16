@@ -30,17 +30,31 @@ public class RequestController {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Endpoint for creating a new request.
+     *
+     * @param requestBO The RequestBO object containing request details.
+     * @return ResponseEntity containing the ID of the newly created request and HTTP status.
+     */
     @PostMapping("/create")
-    public ResponseEntity<Object> createRequest(@RequestBody RequestBO requestBO) {
-        Request request = RequestMapper.toData(requestBO,
-                new HashSet<User>(userRepository.findAllById(requestBO.getParticipants())));
+    public ResponseEntity<Object> createRequest(@RequestBody RequestBO requestBO )
+    {
+        Request request=RequestMapper.toData(requestBO,
+                    new HashSet<User>(userRepository.findAllById(requestBO.getParticipants())));
         Request newRequest = requestRepository.save(request);
         return new ResponseEntity<>(newRequest.getReqId(), HttpStatus.CREATED);
     }
 
+    /**
+     * Endpoint for retrieving requests associated with a specific user.
+     *
+     * @param userId The ID of the user for whom requests are to be retrieved.
+     * @return ResponseEntity containing a list of RequestBO objects representing requests
+     *         associated with the user and HTTP status.
+     */
     @GetMapping("/get")
-    public ResponseEntity<Object> getRequests(@RequestParam Long teacherId) {
-        Optional<User> user = userRepository.findById(teacherId);
+    public ResponseEntity<Object> getRequests(@RequestParam Long userId) {
+        Optional<User> user = userRepository.findById(userId);
 
         if (user.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

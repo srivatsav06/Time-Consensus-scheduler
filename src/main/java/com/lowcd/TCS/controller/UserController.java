@@ -29,6 +29,12 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Endpoint for saving a new user or returning an error if the email already exists.
+     *
+     * @param userBO The UserBO object containing user data to be saved.
+     * @return ResponseEntity containing a success message or error message and the corresponding HTTP status.
+     */
     @PostMapping(path = "/save")
     public ResponseEntity<Object> saveUser(@RequestBody UserBO userBO) {
 
@@ -42,6 +48,12 @@ public class UserController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    /**
+     * Endpoint for user login.
+     *
+     * @param loginuser The LoginBO object containing login credentials (email and password).
+     * @return ResponseEntity containing a login status message and HTTP status.
+     */
     @PostMapping(path = "/login")
     public ResponseEntity<Object> loginemployee(@RequestBody LoginBO loginuser) {
         String st = userservice.loginEmployee(loginuser);
