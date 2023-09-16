@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -36,4 +37,8 @@ public class User {
 
     @ManyToMany(mappedBy = "participants")
     private Set<Event> events;
+
+    public User(Long userid, String name, String password, String email, Role role) {
+        this(userid, name, password, email, role, new HashSet<>(), new HashSet<>());
+    }
 }
