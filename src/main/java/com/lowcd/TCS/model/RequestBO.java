@@ -1,5 +1,6 @@
 package com.lowcd.TCS.model;
 
+import com.lowcd.TCS.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RequestBO {
     private LocalDateTime dateTime;
-    private String status;
+    private Status status;
     private String title;
     private String description;
     private List<Long> participants;

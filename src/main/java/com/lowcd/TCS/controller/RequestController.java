@@ -1,5 +1,9 @@
 package com.lowcd.TCS.controller;
 
+import com.lowcd.TCS.entity.Event;
+import com.lowcd.TCS.enums.Status;
+import com.lowcd.TCS.service.EventService;
+import com.lowcd.TCS.service.RequestService;
 import com.lowcd.TCS.util.RequestMapper;
 import com.lowcd.TCS.entity.Request;
 import com.lowcd.TCS.model.RequestBO;
@@ -21,6 +25,12 @@ public class RequestController  {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RequestService requestService;
+
+    @Autowired
+    EventService eventService;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createRequest(@RequestBody RequestBO requestBO )
@@ -56,5 +66,22 @@ public class RequestController  {
 
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<Object> changeStatus(Long id, Status status)
+    {
+        Request request= requestRepository.findById(id).get();
+        if(status.equals(Status.ACCEPTED))
+        {
+            Event event = eventService.eventFromRequest(request);
+            requestService.deleteRequest(request);
+            return new ResponseEntity<>(event.getEventId(),HttpStatus.OK);
+        }
+        if(status.equals(Status.REJECTED))
+        {
+            request.setStatus(status);
+            requestRepository.save(request);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
