@@ -126,6 +126,8 @@ else
 
 #  git checkout "$BASE_BRANCH"
 #  git branch -d "$NEW_BRANCH"
+  git fetch
+  git rebase "$REMOTE_NAME/$NEW_BRANCH"
 
   # Output the pull request URL and the branch name to the terminal
   echo "Pull request created: $PR_URL"
