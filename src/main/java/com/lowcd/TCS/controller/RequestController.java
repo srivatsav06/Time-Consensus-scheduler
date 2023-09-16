@@ -41,7 +41,7 @@ public class RequestController  {
         }
         List<Request> requests = requestRepository.findRequestsByParticipantsUserid(user.get().getUserid());
 
-         List<RequestBO> list=new ArrayList<>();
+         List<RequestBO> list = new ArrayList<>();
          for (Request r:requests)
          {
              List<User> l = userRepository.findUsersByRequestsReqId(r.getReqId());
