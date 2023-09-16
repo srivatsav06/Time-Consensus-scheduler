@@ -126,6 +126,7 @@ else
 
 #  git checkout "$BASE_BRANCH"
 #  git branch -d "$NEW_BRANCH"
+#  test
   git fetch
   git rebase "$REMOTE_NAME/$NEW_BRANCH"
 
