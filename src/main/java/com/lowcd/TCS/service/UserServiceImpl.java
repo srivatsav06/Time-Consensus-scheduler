@@ -1,7 +1,10 @@
 package com.lowcd.TCS.service;
 
+import com.lowcd.TCS.entity.Role;
 import com.lowcd.TCS.model.LoginBO;
 import com.lowcd.TCS.entity.User;
+import com.lowcd.TCS.model.UserBO;
+import com.lowcd.TCS.repository.RoleRepository;
 import com.lowcd.TCS.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,24 +12,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-
+    @Autowired
+    private RoleRepository roleRepository;
     @Autowired
     private UserRepository userRepository;
+
     @Override
-    public String addUser(User user) {
-
-       User user1=new User(
-
-               user.getUserid(),
-               user.getName(),
-               user.getPassword(),
-               user.getEmail(),
-               user.getRole()
-
-
-       );
+    public String addUser(UserBO userBO) {
+//
+//        User user1=new User(
+//                user.getName(),
+//                user.getPassword(),
+//                user.getEmail(),
+//                user.getRole()
+//        );
+        Role role = roleRepository.findById(userBO.getRoleId()).get();
+      User user1 = new User(
+              userBO.getName(),
+              userBO.getPassword(),
+              userBO.getEmail(),
+              role
+      );
         userRepository.save(user1);
-       return user1.getName();
+        return userBO.getName();
     }
 
     @Override
@@ -34,10 +42,8 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByEmail(loginuser.getEmail());
 
-        if(user!=null)
-            return "Found";
-        else
-            return "Not Found";
+
+        return user==null ?"Found":"Not Found";
 
     }
 }

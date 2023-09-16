@@ -5,13 +5,16 @@ import com.lowcd.TCS.entity.Role;
 import com.lowcd.TCS.entity.User;
 import com.lowcd.TCS.model.UserBO;
 import com.lowcd.TCS.repository.RoleRepository;
+import com.lowcd.TCS.repository.UserRepository;
 import com.lowcd.TCS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/user")
+@RequestMapping("/user")
 
 
 
@@ -21,30 +24,29 @@ public class UserController {
     private UserService userservice;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  @PostMapping(path="/save")
-  public String saveUser(@RequestBody UserBO userBO)
+    @PostMapping(path="/save")
+  public ResponseEntity<Object> saveUser(@RequestBody UserBO userBO)
   {
 
+      User user = userRepository.findByEmail(userBO.getEmail());
+      if(user!=null)
+      {
+          String id = "Email ready exists!";
+          return new ResponseEntity<>(id, HttpStatus.ALREADY_REPORTED);
+      }
 
-      Role role = roleRepository.findById(userBO.getRoleId()).get();
-      User user1 = new User(
-              userBO.getUserid(),
-              userBO.getName(),
-              userBO.getPassword(),
-              userBO.getEmail(),
-              role
-      );
-
-      String id = userservice.addUser(user1);
-      return id;
+      String id = userservice.addUser(userBO);
+      return new ResponseEntity<>(id, HttpStatus.CREATED);
   }
 
     @PostMapping(path="/login")
-    public String loginemployee(@RequestBody LoginBO loginuser)
+    public ResponseEntity<Object> loginemployee(@RequestBody LoginBO loginuser)
     {
         String st = userservice.loginEmployee(loginuser);
-        return st;
+        return new ResponseEntity<>(st,HttpStatus.FOUND);
     }
 
 }
