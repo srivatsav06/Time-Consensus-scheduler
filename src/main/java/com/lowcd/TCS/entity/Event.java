@@ -1,7 +1,9 @@
 package com.lowcd.TCS.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,6 +12,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +27,7 @@ import java.util.Set;
 @Table(name = "events")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -40,11 +44,18 @@ public class Event {
     @Column(name = "dateandtime", nullable = false)
     private LocalDateTime dateTime;
 
-    @ManyToMany
-    @JoinTable(name = "participants",
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "eventparticipants",
             joinColumns = @JoinColumn(name = "eventid"),
             inverseJoinColumns = @JoinColumn(name = "userid"))
-    @Column(name = "participants")
     private Set<User> participants;
 
+
+    public Event(String title, String description, LocalDateTime dateTime, Set<User> participants) {
+        this.title = title;
+        this.description = description;
+        this.dateTime = dateTime;
+        this.participants = participants;
+    }
 }

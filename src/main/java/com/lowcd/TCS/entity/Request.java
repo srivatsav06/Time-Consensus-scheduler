@@ -1,8 +1,12 @@
 package com.lowcd.TCS.entity;
 
+import com.lowcd.TCS.enums.Status;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +15,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +30,7 @@ import java.util.Set;
 @Table(name = "requests")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -32,7 +38,8 @@ public class Request {
     @Setter(value = AccessLevel.NONE)
     private Long reqId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
     @JoinTable(name = "participantrequests",
             joinColumns = @JoinColumn(name = "reqid"),
             inverseJoinColumns = @JoinColumn(name = "userid"))
@@ -41,8 +48,9 @@ public class Request {
     @Column(name = "dateandtime", nullable = false)
     private LocalDateTime dateTime;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private Status status;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -50,10 +58,21 @@ public class Request {
     @Column(name = "description")
     private String description;
 
-    public Request(LocalDateTime dateTime, String status, String title, String description) {
+    public Request(LocalDateTime dateTime, Status status, String title, String description) {
         this.dateTime = dateTime;
         this.status = status;
         this.title = title;
         this.description = description;
+    }
+
+    public void addUser(User user)
+    {
+        this.participants.add(user);
+        user.getRequests().add(this);
+    }
+    public void removeUser(User user)
+    {
+        this.participants.remove(user);
+        user.getRequests().remove(this);
     }
 }
