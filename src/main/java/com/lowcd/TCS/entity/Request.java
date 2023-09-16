@@ -1,9 +1,10 @@
-package com.lowcd.TCS.model;
-import java.util.List;
+package com.lowcd.TCS.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+
 @Entity
 @Table(name = "requests")
 @Data
@@ -15,18 +16,11 @@ public class Request {
     @Setter(value = AccessLevel.NONE)
     private Long reqId;
 
-    @ManyToMany
-    @JoinTable(name = "studentrequests" ,
-            joinColumns = @JoinColumn(name="userid"),
-            inverseJoinColumns = @JoinColumn(name="reqid"))
-    private List<User> studentId;
-
-    @ManyToMany
-    @JoinTable(name="teacherrequests" ,
-            joinColumns = @JoinColumn(name="userid"),
-            inverseJoinColumns = @JoinColumn(name="reqid"))
-    @Column(name ="teacherid")
-    private List<User> teacherId;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "participantrequests" ,
+            joinColumns = @JoinColumn(name="reqid"),
+            inverseJoinColumns = @JoinColumn(name="userid"))
+    private Set<User> participants;
 
     @Column(name ="dateandtime", nullable = false)
     private LocalDateTime dateTime;
