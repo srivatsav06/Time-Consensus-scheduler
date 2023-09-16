@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,7 @@ public class User {
     @Column(name="password",nullable = false)
     private String password;
 
-    @Column(name="email",nullable = false)
+    @Column(name="email",nullable = false,unique = true)
     private String email;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -36,4 +37,8 @@ public class User {
 
     @ManyToMany(mappedBy = "participants")
     private Set<Event> events;
+
+    public User(String name, String password, String email, Role role) {
+        this(null, name, password, email, role, new HashSet<>(), new HashSet<>());
+    }
 }
