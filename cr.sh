@@ -49,7 +49,6 @@ generate_random_branch_name() {
 generate_branch_name() {
   local LATEST_PR=$(gh pr list --state open --limit 1 --json number --jq '.[0].number')
   if [ -n "$LATEST_PR" ]; then
-    LATEST_PR=LATEST_PR+1
     printf "cr%05d" "$((LATEST_PR + 1))"
   else
     # If no open pull requests, get the highest closed pull request number

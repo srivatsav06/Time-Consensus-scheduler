@@ -1,11 +1,10 @@
 package com.lowcd.TCS.repository;
 
 import com.lowcd.TCS.entity.Role;
-import com.lowcd.TCS.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role,Integer> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 
 }
