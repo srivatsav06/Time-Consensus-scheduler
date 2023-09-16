@@ -10,7 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * Represents a Role entity in the application.
+ */
 @Entity
 @Table(name = "roles")
 @Data

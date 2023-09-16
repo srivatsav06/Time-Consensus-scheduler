@@ -18,6 +18,9 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+/**
+ * Represents a Request entity in the application.
+ */
 @Entity
 @Table(name = "requests")
 @Data

@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Represents a Business Object (BO) for Request data.
+ * This class is used for transferring request-related data between different parts of the application.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

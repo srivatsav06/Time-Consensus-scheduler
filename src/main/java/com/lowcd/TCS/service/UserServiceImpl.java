@@ -17,6 +17,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Adds a new user to the system.
+     *
+     * @param userBO The UserBO object containing user data to be added.
+     * @return The name of the added user.
+     */
     @Override
     public String addUser(UserBO userBO) {
         Role role = roleRepository.findById(userBO.getRoleId()).get();
@@ -30,6 +36,12 @@ public class UserServiceImpl implements UserService {
         return userBO.getName();
     }
 
+    /**
+     * Validates user login credentials.
+     *
+     * @param loginuser The LoginBO object containing login credentials (email and password).
+     * @return A login status message ("Found" or "Not Found").
+     */
     @Override
     public String loginEmployee(LoginBO loginuser) {
         User user = userRepository.findByEmail(loginuser.getEmail());
