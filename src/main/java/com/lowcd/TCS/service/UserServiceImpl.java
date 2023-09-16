@@ -19,14 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String addUser(UserBO userBO) {
-//
-//        User user1=new User(
-//                user.getName(),
-//                user.getPassword(),
-//                user.getEmail(),
-//                user.getRole()
-//        );
-        Role role = roleRepository.findById(userBO.getRoleId()).get();
+      Role role = roleRepository.findById(userBO.getRoleId()).get();
       User user1 = new User(
               userBO.getName(),
               userBO.getPassword(),
