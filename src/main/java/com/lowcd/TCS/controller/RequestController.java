@@ -1,6 +1,6 @@
 package com.lowcd.TCS.controller;
 
-import com.lowcd.TCS.Util.RequestMapper;
+import com.lowcd.TCS.util.RequestMapper;
 import com.lowcd.TCS.entity.Request;
 import com.lowcd.TCS.model.RequestBO;
 import com.lowcd.TCS.entity.User;
