@@ -18,4 +18,7 @@ INSERT INTO requests (reqid, dateandtime, status, title, description) VALUES (1,
 
 INSERT INTO participantrequests (reqid, userid) VALUES (1, 1),(1, 2);
 
+--Insert a new event
+INSERT INTO events (eventid, title, description, dateandtime) VALUES (1, 'Sample Event', 'This is a sample event description', '2023-09-16 15:30:00');
 
+INSERT INTO eventparticipants (eventid, userid) VALUES (1, 1), (1, 2);
