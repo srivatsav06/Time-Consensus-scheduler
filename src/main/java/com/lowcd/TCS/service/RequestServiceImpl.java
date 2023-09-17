@@ -12,6 +12,11 @@ public class RequestServiceImpl implements RequestService {
     @Autowired
     RequestRepository requestRepository;
 
+    /**
+     * Deletes a Request and its associated records from the request repository.
+     *
+     * @param request The Request object to be deleted.
+     */
     @Transactional
     public void deleteRequest(Request request) {
         requestRepository.deleteRequestFromParticipantRequests(request.getReqId());
