@@ -18,14 +18,7 @@ import java.util.HashSet;
 public class RequestServiceImpl implements RequestService {
 
     @Autowired
-    EventRepository eventRepository;
-
-    @Autowired
     RequestRepository requestRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
     @Transactional
     public void deleteRequest(Request request)
     {

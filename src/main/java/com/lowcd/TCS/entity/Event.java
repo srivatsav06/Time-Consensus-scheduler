@@ -44,8 +44,7 @@ public class Event {
     @Column(name = "dateandtime", nullable = false)
     private LocalDateTime dateTime;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
-            fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(name = "eventparticipants",
             joinColumns = @JoinColumn(name = "eventid"),
             inverseJoinColumns = @JoinColumn(name = "userid"))

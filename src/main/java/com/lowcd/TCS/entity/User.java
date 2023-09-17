@@ -46,13 +46,11 @@ public class User {
     private Role role;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
-            mappedBy = "participants",
-            fetch = FetchType.LAZY)
+            mappedBy = "participants")
     private Set<Request> requests;
 
     @ManyToMany(cascade = CascadeType.ALL,
-            mappedBy = "participants",
-            fetch = FetchType.LAZY)
+            mappedBy = "participants")
     private Set<Event> events;
 
     public User(String name, String password, String email, Role role) {

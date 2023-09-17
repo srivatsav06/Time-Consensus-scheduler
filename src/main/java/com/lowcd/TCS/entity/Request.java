@@ -38,8 +38,7 @@ public class Request {
     @Setter(value = AccessLevel.NONE)
     private Long reqId;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH},
-            fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(name = "participantrequests",
             joinColumns = @JoinColumn(name = "reqid"),
             inverseJoinColumns = @JoinColumn(name = "userid"))
