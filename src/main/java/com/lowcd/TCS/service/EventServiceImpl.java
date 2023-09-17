@@ -13,6 +13,12 @@ public class EventServiceImpl implements EventService {
     @Autowired
     EventRepository eventRepository;
 
+    /**
+     * Creates a new Event based on the information from a given Request and saves it to the Event repository.
+     *
+     * @param request The Request object from which to create the Event.
+     * @return The newly created Event object, which has been saved to the repository.
+     */
     @Override
     public Event eventFromRequest(Request request) {
         Event event = new Event(request.getTitle(),

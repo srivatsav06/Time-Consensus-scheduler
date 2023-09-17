@@ -84,6 +84,13 @@ public class RequestController {
 
     }
 
+    /**
+     * Handles HTTP POST requests to update the status of a request.
+     *
+     * @param id     The unique identifier of the request. (Required)
+     * @param status The new status to assign to the request. (Required)
+     * @return A ResponseEntity containing the result of the status update.
+     */
     @PostMapping("/update")
     public ResponseEntity<Object> changeStatus(Long id, Status status) {
         Request request = requestRepository.findById(id).get();
