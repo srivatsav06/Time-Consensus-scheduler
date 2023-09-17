@@ -6,5 +6,6 @@ import com.lowcd.TCS.model.UserBO;
 
 public interface UserService {
     String addUser(UserBO userBO);
+
     String loginEmployee(LoginBO loginuser);
 }
