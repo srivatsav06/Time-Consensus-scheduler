@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
     List<Request> findRequestsByParticipantsUserid(Long userId);
+
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM participantrequests WHERE reqId = :requestId", nativeQuery = true)

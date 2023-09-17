@@ -1,9 +1,8 @@
 package com.lowcd.TCS.service;
 
-import com.lowcd.TCS.entity.Event;
 import com.lowcd.TCS.entity.Request;
 
 public interface RequestService {
-        public void deleteRequest(Request request);
+    public void deleteRequest(Request request);
 
 }

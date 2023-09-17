@@ -1,15 +1,15 @@
 package com.lowcd.TCS.controller;
 
 import com.lowcd.TCS.entity.Event;
-import com.lowcd.TCS.enums.Status;
-import com.lowcd.TCS.service.EventService;
-import com.lowcd.TCS.service.RequestService;
-import com.lowcd.TCS.util.RequestMapper;
 import com.lowcd.TCS.entity.Request;
 import com.lowcd.TCS.entity.User;
+import com.lowcd.TCS.enums.Status;
 import com.lowcd.TCS.model.RequestBO;
 import com.lowcd.TCS.repository.RequestRepository;
 import com.lowcd.TCS.repository.UserRepository;
+import com.lowcd.TCS.service.EventService;
+import com.lowcd.TCS.service.RequestService;
+import com.lowcd.TCS.util.RequestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,10 +47,9 @@ public class RequestController {
      * @return ResponseEntity containing the ID of the newly created request and HTTP status.
      */
     @PostMapping("/create")
-    public ResponseEntity<Object> createRequest(@RequestBody RequestBO requestBO )
-    {
-        Request request=RequestMapper.toData(requestBO,
-                    new HashSet<User>(userRepository.findAllById(requestBO.getParticipants())));
+    public ResponseEntity<Object> createRequest(@RequestBody RequestBO requestBO) {
+        Request request = RequestMapper.toData(requestBO,
+                new HashSet<User>(userRepository.findAllById(requestBO.getParticipants())));
         Request newRequest = requestRepository.save(request);
         return new ResponseEntity<>(newRequest.getReqId(), HttpStatus.CREATED);
     }
@@ -60,7 +59,7 @@ public class RequestController {
      *
      * @param userId The ID of the user for whom requests are to be retrieved.
      * @return ResponseEntity containing a list of RequestBO objects representing requests
-     *         associated with the user and HTTP status.
+     * associated with the user and HTTP status.
      */
     @GetMapping("/get")
     public ResponseEntity<Object> getRequests(@RequestParam Long userId) {
@@ -86,17 +85,14 @@ public class RequestController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Object> changeStatus(Long id, Status status)
-    {
-        Request request= requestRepository.findById(id).get();
-        if(status.equals(Status.ACCEPTED))
-        {
+    public ResponseEntity<Object> changeStatus(Long id, Status status) {
+        Request request = requestRepository.findById(id).get();
+        if (status.equals(Status.ACCEPTED)) {
             Event event = eventService.eventFromRequest(request);
             requestService.deleteRequest(request);
-            return new ResponseEntity<>(event.getEventId(),HttpStatus.OK);
+            return new ResponseEntity<>(event.getEventId(), HttpStatus.OK);
         }
-        if(status.equals(Status.REJECTED))
-        {
+        if (status.equals(Status.REJECTED)) {
             request.setStatus(status);
             requestRepository.save(request);
         }

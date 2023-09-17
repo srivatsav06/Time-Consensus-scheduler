@@ -6,7 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,7 +37,7 @@ public class Request {
     @Setter(value = AccessLevel.NONE)
     private Long reqId;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "participantrequests",
             joinColumns = @JoinColumn(name = "reqid"),
             inverseJoinColumns = @JoinColumn(name = "userid"))
@@ -64,13 +63,12 @@ public class Request {
         this.description = description;
     }
 
-    public void addUser(User user)
-    {
+    public void addUser(User user) {
         this.participants.add(user);
         user.getRequests().add(this);
     }
-    public void removeUser(User user)
-    {
+
+    public void removeUser(User user) {
         this.participants.remove(user);
         user.getRequests().remove(this);
     }
