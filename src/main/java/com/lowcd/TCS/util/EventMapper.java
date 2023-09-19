@@ -30,5 +30,19 @@ public class EventMapper {
         );
         return eventBO;
     }
+    /**
+     * Converts a list of Event entities into a list of EventBO (Business Object) instances.
+     *
+     * @param events The list of Event entities to be converted.
+     * @return A list of EventBO instances containing business-related data.
+     */
+    public static List<EventBO> fromData(List<Event> events) {
+        List<EventBO> list = new ArrayList<>();
+        for (Event e : events) {
+            EventBO eventBO = EventMapper.fromData(e);
+            list.add(eventBO);
+        }
+        return list;
+    }
 
 }

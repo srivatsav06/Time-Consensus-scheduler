@@ -77,7 +77,6 @@ generate_branch_name() {
 # Replace these variables with your own values
 BASE_BRANCH="mainline"
 PULL_REQUEST_TITLE="Add title"
-PULL_REQUEST_BODY="Add description."
 REMOTE_NAME="origin"
 
 # Check if the script was provided with an argument like '-r 5'
@@ -117,8 +116,14 @@ else
   # Push the new branch to the remote repository
   git push "$REMOTE_NAME" "$NEW_BRANCH"
 
+  # Prompt the user for input
+  echo "Please enter pull request title: "
+
+  # Read user input into a variable
+  read -r PULL_REQUEST_TITLE
+
   # Create a pull request using GitHub CLI (gh)
-  gh pr create --base "$BASE_BRANCH" --head "$NEW_BRANCH" --title "$PULL_REQUEST_TITLE" --body "$PULL_REQUEST_BODY"
+  gh pr create --base "$BASE_BRANCH" --head "$NEW_BRANCH" --title "$PULL_REQUEST_TITLE" --body "$PULL_REQUEST_TITLE"
 
   # Get the pull request URL
   PR_URL=$(gh pr view --json url --jq '.url')

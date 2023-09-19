@@ -2,6 +2,8 @@ package com.lowcd.TCS.controller;
 
 import com.lowcd.TCS.entity.Event;
 import com.lowcd.TCS.entity.User;
+import com.lowcd.TCS.model.DayEventsRequest;
+import com.lowcd.TCS.model.DayEventsResponse;
 import com.lowcd.TCS.model.EventBO;
 import com.lowcd.TCS.repository.EventRepository;
 import com.lowcd.TCS.repository.UserRepository;
@@ -10,10 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,4 +65,24 @@ public class EventsController {
         return new ResponseEntity<>(list, HttpStatus.FOUND);
 
     }
+    /**
+     * Retrieves events that occur on a specific date and are associated with a list of user IDs.
+     *
+     * @param dayEventsRequest The request containing the date and user IDs.
+     * @return A ResponseEntity containing a DayEventsResponse with events for each user on the specified date.
+     */
+    @PostMapping("/byDate")
+    public ResponseEntity<Object> getEventsByDateAndUserIds(@RequestBody DayEventsRequest dayEventsRequest) {
+        DayEventsResponse dayEventsResponse = new DayEventsResponse();
+        LocalDateTime startOfDay = dayEventsRequest.getDate().atStartOfDay();
+        LocalDateTime endOfDay = dayEventsRequest.getDate().atTime(LocalTime.MAX);
+        dayEventsRequest.getIds().forEach(id -> {
+            dayEventsResponse.addData(id,
+                    EventMapper.fromData(
+                            eventRepository.findEventsByParticipantsUseridAndDateTimeBetween(
+                                    id, startOfDay, endOfDay)));
+        });
+        return new ResponseEntity<>(dayEventsResponse, HttpStatus.OK);
+    }
+
 }
