@@ -35,6 +35,27 @@ public class EventsController {
     UserRepository userRepository;
 
     /**
+     * Retrieves the upcoming 5 events for a given user based on their user ID.
+     *
+     * @param userId The unique identifier of the user for whom to retrieve upcoming events.
+     * @return ResponseEntity containing a list of upcoming events if the user is found, or a NOT_FOUND response if the user does not exist.
+     */
+    @GetMapping("/upcoming")
+    public ResponseEntity<Object> getUpcomingEvents(@RequestParam Long userId) {
+
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        List<Event> events = eventRepository.findTop5ByParticipantsUseridAndDateTimeAfterOrderByDateTimeAsc(user.get().getUserid(),currentDateTime);
+        List<EventBO> list = EventMapper.fromData(events);
+        return new ResponseEntity<>(list, HttpStatus.FOUND);
+
+    }
+
+    /**
      * Retrieves a list of events associated with a specific user identified by their user ID.
      *
      * @param userId The unique identifier of the user for whom events are to be retrieved.
@@ -51,17 +72,7 @@ public class EventsController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         List<Event> events = eventRepository.findEventsByParticipantsUserid(user.get().getUserid());
-
-        List<EventBO> list = new ArrayList<>();
-        for (Event r : events) {
-            List<User> l = userRepository.findUsersByEventsEventId(r.getEventId());
-            List<Long> ids = new ArrayList<>();
-            l.forEach(u -> ids.add(u.getUserid()));
-            EventBO eventBO = EventMapper.fromData(r);
-            eventBO.setParticipants(ids);
-            list.add(eventBO);
-        }
-
+        List<EventBO> list = EventMapper.fromData(events);
         return new ResponseEntity<>(list, HttpStatus.FOUND);
 
     }

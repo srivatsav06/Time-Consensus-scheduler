@@ -19,6 +19,13 @@ INSERT INTO requests (reqid, dateandtime, status, title, description) VALUES (1,
 INSERT INTO participantrequests (reqid, userid) VALUES (1, 1),(1, 2);
 
 --Insert a new event
-INSERT INTO events (eventid, title, description, dateandtime) VALUES (1, 'Sample Event', 'This is a sample event description', '2023-09-16 15:30:00');
+INSERT INTO events (eventid, title, description, dateandtime) VALUES (1, 'Sample Event', 'This is a sample event description', '2021-09-16 15:30:00');
+INSERT INTO events (eventid, title, description, dateandtime) VALUES (2, 'Sample Event2', 'This is a sample event description2', '2025-09-16 15:30:00');
+INSERT INTO events (eventid, title, description, dateandtime) VALUES (3, 'Sample Event2', 'This is a sample event description2', '2024-09-16 15:30:00');
+INSERT INTO events (eventid, title, description, dateandtime) VALUES (4, 'Sample Event2', 'This is a sample event description2', '2030-09-16 15:30:00');
+INSERT INTO events (eventid, title, description, dateandtime) VALUES (5, 'Sample Event2', 'This is a sample event description2', '2029-09-16 15:30:00');
+INSERT INTO events (eventid, title, description, dateandtime) VALUES (6, 'Sample Event2', 'This is a sample event description2', '2026-09-16 15:30:00');
+INSERT INTO events (eventid, title, description, dateandtime) VALUES (7, 'Sample Event2', 'This is a sample event description2', '2027-09-16 15:30:00');
 
-INSERT INTO eventparticipants (eventid, userid) VALUES (1, 1), (1, 2);
+
+INSERT INTO eventparticipants (eventid, userid) VALUES (1, 1), (1, 2),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1);
