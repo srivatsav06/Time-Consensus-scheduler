@@ -12,5 +12,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findEventsByParticipantsUserid(Long userid);
 
+    List<Event> findTop5ByParticipantsUseridAndDateTimeAfterOrderByDateTimeAsc(Long userid, LocalDateTime currentDateTime);
+
     List<Event> findEventsByParticipantsUseridAndDateTimeBetween(Long userid, LocalDateTime startDateTime, LocalDateTime endDateTime);
 }
