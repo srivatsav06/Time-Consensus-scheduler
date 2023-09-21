@@ -22,7 +22,8 @@ public class RequestMapper {
      */
     public static Request toData(RequestBO req, Set<User> users) {
         Request request = new Request();
-        request.setDateTime(req.getDateTime());
+        request.setStartDateTime(req.getStartDateTime());
+        request.setEndDateTime(req.getEndDateTime());
         request.setTitle(req.getTitle());
         request.setStatus(req.getStatus());
         request.setDescription(req.getDescription());
@@ -40,7 +41,8 @@ public class RequestMapper {
         List<Long> participants = new ArrayList<Long>();
         Set<User> users = request.getParticipants();
         users.forEach(u -> participants.add(u.getUserid()));
-        RequestBO requestBO = new RequestBO(request.getDateTime(),
+        RequestBO requestBO = new RequestBO(request.getStartDateTime(),
+                request.getEndDateTime(),
                 request.getStatus(),
                 request.getTitle(),
                 request.getDescription(),

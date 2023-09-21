@@ -43,8 +43,11 @@ public class Request {
             inverseJoinColumns = @JoinColumn(name = "userid"))
     private Set<User> participants;
 
-    @Column(name = "dateandtime", nullable = false)
-    private LocalDateTime dateTime;
+    @Column(name = "startdateandtime", nullable = false)
+    private LocalDateTime startDateTime;
+
+    @Column(name = "enddateandtime", nullable = false)
+    private LocalDateTime endDateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -56,8 +59,9 @@ public class Request {
     @Column(name = "description")
     private String description;
 
-    public Request(LocalDateTime dateTime, Status status, String title, String description) {
-        this.dateTime = dateTime;
+    public Request(LocalDateTime startDateTime, LocalDateTime endDateTime, Status status, String title, String description) {
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.status = status;
         this.title = title;
         this.description = description;

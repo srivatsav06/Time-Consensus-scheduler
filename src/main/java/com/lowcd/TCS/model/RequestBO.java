@@ -16,7 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestBO {
-    private LocalDateTime dateTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
     private Status status;
     private String title;
     private String description;

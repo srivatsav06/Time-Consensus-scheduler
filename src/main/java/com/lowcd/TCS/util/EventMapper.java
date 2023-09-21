@@ -23,7 +23,8 @@ public class EventMapper {
         users.forEach(u -> participants.add(u.getUserid()));
         EventBO eventBO = new EventBO(
 
-                event.getDateTime(),
+                event.getStartDateTime(),
+                event.getEndDateTime(),
                 event.getTitle(),
                 event.getDescription(),
                 participants
