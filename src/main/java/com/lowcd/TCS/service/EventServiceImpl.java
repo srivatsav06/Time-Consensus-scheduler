@@ -23,7 +23,8 @@ public class EventServiceImpl implements EventService {
     public Event eventFromRequest(Request request) {
         Event event = new Event(request.getTitle(),
                 request.getDescription(),
-                request.getDateTime(),
+                request.getStartDateTime(),
+                request.getEndDateTime(),
                 new HashSet<>(request.getParticipants()));
         return eventRepository.save(event);
     }

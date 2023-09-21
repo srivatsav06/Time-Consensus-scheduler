@@ -12,7 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class EventBO {
 
-    private LocalDateTime dateTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
     private String title;
     private String description;
     private List<Long> participants;

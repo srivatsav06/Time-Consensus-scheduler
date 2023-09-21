@@ -40,8 +40,11 @@ public class Event {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "dateandtime", nullable = false)
-    private LocalDateTime dateTime;
+    @Column(name = "startdateandtime", nullable = false)
+    private LocalDateTime startDateTime;
+
+    @Column(name = "enddateandtime", nullable = false)
+    private LocalDateTime endDateTime;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "eventparticipants",
@@ -49,11 +52,11 @@ public class Event {
             inverseJoinColumns = @JoinColumn(name = "userid"))
     private Set<User> participants;
 
-
-    public Event(String title, String description, LocalDateTime dateTime, Set<User> participants) {
+    public Event(String title, String description, LocalDateTime startDateTime, LocalDateTime endDateTime, Set<User> participants) {
         this.title = title;
         this.description = description;
-        this.dateTime = dateTime;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.participants = participants;
     }
 }

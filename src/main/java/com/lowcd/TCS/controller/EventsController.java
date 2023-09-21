@@ -49,7 +49,7 @@ public class EventsController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         LocalDateTime currentDateTime = LocalDateTime.now();
-        List<Event> events = eventRepository.findTop5ByParticipantsUseridAndDateTimeAfterOrderByDateTimeAsc(user.get().getUserid(),currentDateTime);
+        List<Event> events = eventRepository.findTop5ByParticipantsUseridAndStartDateTimeAfterOrderByStartDateTimeAsc(user.get().getUserid(),currentDateTime);
         List<EventBO> list = EventMapper.fromData(events);
         return new ResponseEntity<>(list, HttpStatus.FOUND);
 
@@ -90,7 +90,7 @@ public class EventsController {
         dayEventsRequest.getIds().forEach(id -> {
             dayEventsResponse.addData(id,
                     EventMapper.fromData(
-                            eventRepository.findEventsByParticipantsUseridAndDateTimeBetween(
+                            eventRepository.findEventsByParticipantsUseridAndStartDateTimeBetween(
                                     id, startOfDay, endOfDay)));
         });
         return new ResponseEntity<>(dayEventsResponse, HttpStatus.OK);
